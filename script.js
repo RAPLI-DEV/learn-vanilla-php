@@ -40,7 +40,7 @@ class monitorValue{
         this.monitor.innerHTML = this.o
 
         var xml = new XMLHttpRequest(); 
-        xml.open('POST', 'http://localhost/calculator.php', true);
+        xml.open('POST', 'calculator.php', true);
         xml.setRequestHeader('Content-Type', 'text/plain'); 
 
         xml.onload = () => {
