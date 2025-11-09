@@ -7,7 +7,9 @@ error_reporting(E_ALL);
         if(!empty(file_get_contents('php://input'))){
             $math = file_get_contents('php://input');
 
-            eval('$result = ' . $math . ';');
+            $formatted_math = str_replace(['÷', '×'], ['/', '*'], $math);
+            eval('$result = ' . $formatted_math . ';');
+            
             http_response_code(200);
             echo $result;
         }

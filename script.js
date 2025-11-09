@@ -1,29 +1,46 @@
 class monitorValue{
     constructor() {
+       
         this.monitor = document.querySelector(".monitor")
+        
+        this.operators = ['+', '-', '×', '÷'];
         this.numbers = this.numbers ? this.numbers : ''
         this.o = this.o ? this.o : ""
         this.x = this.x ? this.x : ""
     }
     number(param){
         this.x = param
+
         this.numbers += this.x.toString()
         this.monitor.innerHTML = this.numbers
         return this.numbers = this.numbers
     }
     operation(param){
+        
         this.o = param
+        this.all = this.monitor.textContent;
+        let lastChar = this.all.charAt(this.all.length - 1);
+
+        if (this.all.trim() === "" || this.operators.includes(lastChar)){
+            return;
+        }       
         this.monitor.innerHTML = this.numbers + this.o
         return this.numbers = this.numbers + this.o
     }
     result(param){
-        this.all = this.monitor.textContent
+        this.all = this.monitor.textContent;
+        let lastChar = this.all.charAt(this.all.length - 1);
+
+        if (this.all.trim() === "" || this.o === "" || this.operators.includes(lastChar)){
+            return;
+        }       
+
         console.log("result :" + this.all)
         this.o = param
         this.monitor.innerHTML = this.o
 
         var xml = new XMLHttpRequest(); 
-        xml.open('POST', 'calculator.php', true);
+        xml.open('POST', 'http://localhost/calculator.php', true);
         xml.setRequestHeader('Content-Type', 'text/plain'); 
 
         xml.onload = () => {
