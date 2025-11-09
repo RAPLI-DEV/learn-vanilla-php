@@ -84,3 +84,26 @@ document.querySelector(".nm").addEventListener("click", () => {mv.operation('-')
 document.querySelector(".n0").addEventListener("click", () => {mv.number(0)})
 document.querySelector(".nc").addEventListener("click", () => {mv.number('.')})
 document.querySelector(".nr").addEventListener("click", () => {mv.result("")})
+
+window.addEventListener('keyup', function(event) {
+    if (event.key == "%"){ document.querySelector(".nP").click() }
+    if (event.key == "C"){ document.querySelector(".nC").click() }
+    if (event.key == "Backspace"){ document.querySelector(".nbs").click() }
+    if (event.key == "+"){ document.querySelector(".np").click() }
+    if (event.key == "7"){ document.querySelector(".n7").click() }
+    if (event.key == "8"){ document.querySelector(".n8").click() }
+    if (event.key == "9"){ document.querySelector(".n9").click() }
+    if (event.key == "/"){ document.querySelector(".nd").click() }
+    if (event.key == "4"){ document.querySelector(".n4").click() }
+    if (event.key == "5"){ document.querySelector(".n5").click() }
+    if (event.key == "6"){ document.querySelector(".n6").click() }
+    if (event.key == "*"){ document.querySelector(".nx").click() }
+    if (event.key == "1"){ document.querySelector(".n1").click() }
+    if (event.key == "2"){ document.querySelector(".n2").click() }
+    if (event.key == "3"){ document.querySelector(".n3").click() }
+    if (event.key == "-"){ document.querySelector(".nm").click() }
+    if (event.key == "0"){ document.querySelector(".n0").click() }
+    if (event.key == "," || event.key == "."){ document.querySelector(".nc").click() }
+    if (event.key == "=" || event.key == "Enter"){ document.querySelector(".nr").click() }
+    // console.log('Key released in input field:', event.key);
+});
