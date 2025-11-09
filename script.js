@@ -21,6 +21,25 @@ class monitorValue{
         console.log("result :" + this.all)
         this.o = param
         this.monitor.innerHTML = this.o
+
+        var xml = new XMLHttpRequest(); 
+        xml.open('POST', 'calculator.php', true);
+        xml.setRequestHeader('Content-Type', 'text/plain'); 
+
+        xml.onload = () => {
+
+        if (xml.status === 200) {
+            this.answer = xml.responseText; 
+            this.monitor.innerHTML = this.answer;
+            this.all = ""
+        }
+        else { 
+            console.error('Error:', xml.status, xml.statusText); 
+        }
+
+        }
+
+        xml.send(this.all);
         return this.numbers = ''
     }
     reset(){
