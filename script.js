@@ -1,46 +1,55 @@
 class monitorValue{
     constructor() {
         this.monitor = document.querySelector(".monitor")
-        this.numbers = ''
-        this.o = ""
+        this.numbers = this.numbers ? this.numbers : ''
+        this.o = this.o ? this.o : ""
+        this.x = this.x ? this.x : ""
     }
     number(param){
         this.x = param
-        this.numbers += param.toString()
-        this.monitor.innerHTML += this.numbers
-        return this.numbers
+        this.numbers += this.x.toString()
+        this.monitor.innerHTML = this.numbers
+        return this.numbers = this.numbers
     }
     operation(param){
         this.o = param
-        this.monitor.innerHTML += this.o
+        this.monitor.innerHTML = this.numbers + this.o
+        return this.numbers = this.numbers + this.o
     }
     result(param){
+        this.all = this.monitor.textContent
+        console.log("result :" + this.all)
         this.o = param
         this.monitor.innerHTML = this.o
+        return this.numbers = ''
+    }
+    reset(){
+        this.monitor.innerHTML = ''
+        return [this.numbers = '', this.o = '', this.x = '']
     }
 }
 
 const mv = new monitorValue()
 
 // document.querySelector(".np").addEventListener("click", () => {mv)})
-// document.querySelector(".nC").addEventListener("click", () => {mv)})
+document.querySelector(".nC").addEventListener("click", () => {mv.reset()})
 // document.querySelector(".nbs").addEventListener("click", () => {mv)})
-document.querySelector(".np").addEventListener("click", () => {new monitorValue().operation('+')})
-document.querySelector(".n7").addEventListener("click", () => {new monitorValue().number(7)})
-document.querySelector(".n8").addEventListener("click", () => {new monitorValue().number(8)})
-document.querySelector(".n9").addEventListener("click", () => {new monitorValue().number(9)})
-document.querySelector(".nd").addEventListener("click", () => {new monitorValue().operation('÷')})
-document.querySelector(".n4").addEventListener("click", () => {new monitorValue().number(4)})
-document.querySelector(".n5").addEventListener("click", () => {new monitorValue().number(5)})
-document.querySelector(".n6").addEventListener("click", () => {new monitorValue().number(6)})
-document.querySelector(".nx").addEventListener("click", () => {new monitorValue().operation('×')})
-document.querySelector(".n1").addEventListener("click", () => {new monitorValue().number(1)})
-document.querySelector(".n2").addEventListener("click", () => {new monitorValue().number(2)})
-document.querySelector(".n3").addEventListener("click", () => {new monitorValue().number(3)})
-document.querySelector(".nm").addEventListener("click", () => {new monitorValue().operation('-')})
-document.querySelector(".n0").addEventListener("click", () => {new monitorValue().number(0)})
+document.querySelector(".np").addEventListener("click", () => {mv.operation('+')})
+document.querySelector(".n7").addEventListener("click", () => {mv.number(7)})
+document.querySelector(".n8").addEventListener("click", () => {mv.number(8)})
+document.querySelector(".n9").addEventListener("click", () => {mv.number(9)})
+document.querySelector(".nd").addEventListener("click", () => {mv.operation('÷')})
+document.querySelector(".n4").addEventListener("click", () => {mv.number(4)})
+document.querySelector(".n5").addEventListener("click", () => {mv.number(5)})
+document.querySelector(".n6").addEventListener("click", () => {mv.number(6)})
+document.querySelector(".nx").addEventListener("click", () => {mv.operation('×')})
+document.querySelector(".n1").addEventListener("click", () => {mv.number(1)})
+document.querySelector(".n2").addEventListener("click", () => {mv.number(2)})
+document.querySelector(".n3").addEventListener("click", () => {mv.number(3)})
+document.querySelector(".nm").addEventListener("click", () => {mv.operation('-')})
+document.querySelector(".n0").addEventListener("click", () => {mv.number(0)})
 // document.querySelector(".nc").addEventListener("click", () => {mv)})
-document.querySelector(".nr").addEventListener("click", () => {new monitorValue().result("")})
+document.querySelector(".nr").addEventListener("click", () => {mv.result("")})
 
 
 // document.querySelector(".n%").addEventListener("click", () => {console.log("")})
