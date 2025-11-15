@@ -2,14 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="simple calculator">
+    <meta name="keywords" content="calculator, math, mathematic, aljabar">
+    <meta name="author" content="RAPLI-DEV">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <meta http-equiv="refresh" content="30"> -->
+    <title>Simple Calculator</title>
+    <!-- <link rel="icon" href=""> -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <section class="wrapper">
-        <div class="container">
-            <h1 class="title">Kalkulator</h1>
+    <div class="wrapper">
+        <header>
+
+        </header>
+        <section class="section-container">
+            <h1 class="title-calculator">Calculator</h1>
             <div class="shortcut-box">
                 <p>shortcut information :</p>
                 <ul>
@@ -18,31 +26,33 @@
             </div>
             <div id="calculator">
                 <div class="monitor"></div>
-                <div class="operation">
-                    <div class="animation-btn nP">%</div>
-                    <div class="animation-btn nC">C/E</div>
-                    <div class="animation-btn nbs">←</div>
-                    <div class="animation-btn np">+</div>
-                    <div class="animation-btn n7">7</div>
-                    <div class="animation-btn n8">8</div>
-                    <div class="animation-btn n9">9</div>
-                    <div class="animation-btn nd">÷</div>
-                    <div class="animation-btn n4">4</div>
-                    <div class="animation-btn n5">5</div>
-                    <div class="animation-btn n6">6</div>
-                    <div class="animation-btn nx">×</div>
-                    <div class="animation-btn n1">1</div>
-                    <div class="animation-btn n2">2</div>
-                    <div class="animation-btn n3">3</div>
-                    <div class="animation-btn nm">-</div>
-                    <div class="animation-btn n0">0</div>
-                    <div class="animation-btn nc">.</div>
-                    <div class="animation-btn nr">=</div>
+                <div class="operation-box">
+                    <button class="primary-btn animation-btn def-percent">%</button>
+                    <button class="primary-btn animation-btn def-clear">C/E</button>
+                    <button class="primary-btn animation-btn def-backSpace">⌫</button>
+                    <button class="primary-btn animation-btn def-add">+</button>
+                    <button class="primary-btn animation-btn def-num7">7</button>
+                    <button class="primary-btn animation-btn def-num8">8</button>
+                    <button class="primary-btn animation-btn def-num9">9</button>
+                    <button class="primary-btn animation-btn def-div">÷</button>
+                    <button class="primary-btn animation-btn def-num4">4</button>
+                    <button class="primary-btn animation-btn def-num5">5</button>
+                    <button class="primary-btn animation-btn def-num6">6</button>
+                    <button class="primary-btn animation-btn def-mul">×</button>
+                    <button class="primary-btn animation-btn def-num1">1</button>
+                    <button class="primary-btn animation-btn def-num2">2</button>
+                    <button class="primary-btn animation-btn def-num3">3</button>
+                    <button class="primary-btn animation-btn def-sub">-</button>
+                    <button class="primary-btn animation-btn def-num0">0</button>
+                    <button class="primary-btn animation-btn def-comma">.</button>
+                    <button class="primary-btn animation-btn def-eql">=</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+        <footer>
 
-    <script src="script.js"></script>
+        </footer>
+    </div>
+    <script src="js/script.js"></script>
 </body>
 </html>
