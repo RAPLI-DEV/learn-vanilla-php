@@ -1,66 +1,67 @@
 class calculatorApp{
     constructor() {
         this.monitor = document.querySelector(".monitor")
-        
-        this.operators = ['+', '-', '×', '÷'];
-        this.numbers = this.numbers ? this.numbers : ''
-        this.o = this.o ? this.o : ""
-        this.x = this.x ? this.x : ""
-        this.monitor.innerHTML = "0"
+
+        this.input = '0'
+        this.output = ''
+        this.monitor.innerHTML = this.input
     }
     number(param){
-        this.x = param
+        let numbers = param.toString()
 
-        this.numbers += this.x.toString()
-        this.all += this.numbers
-        this.monitor.innerHTML = this.numbers
-        return this.numbers = this.numbers
+        if (this.input == '0'){
+            return [this.input = numbers, this.monitor.innerHTML = this.input];
+        } else {
+            return [this.input += numbers, this.monitor.innerHTML = this.input]
+        }
     }
     operation(param){
-        this.o = param
-        this.all = this.monitor.textContent;
-        let lastChar = this.all.charAt(this.all.length - 1);
+        let operations = param.toString()
+        let lastChar = this.input.charAt(this.input.length - 1);
+        const operators = ['+', '-', '×', '÷'];
 
-        if (this.all.trim() === "" || this.operators.includes(lastChar)){
+        if (operators.includes(lastChar) || this.input.trim() === "" && operations !== "-" || this.input.trim() === "0" && operations !== "-"){
             return;
         }
-        this.monitor.innerHTML = this.numbers + this.o
-        return this.numbers = this.numbers + this.o
+
+        if (this.input == '0'){
+            return [this.input = operations, this.monitor.innerHTML = this.input];
+        } else {
+            return [this.input += operations, this.monitor.innerHTML = this.input]
+        }
     }
-    result(param){
-        this.all = this.monitor.textContent;
-        console.log("result :" + this.all)
-        let lastChar = this.all.charAt(this.all.length - 1);
+    result(){
+        const operators = ['+', '-', '×', '÷'];
+        let lastChar = this.input.charAt(this.input.length - 1);
 
-        if (this.all.trim() === "" || this.o === "" || this.operators.includes(lastChar)){
+        if (this.input.trim() === "" || operators.includes(lastChar)){
             return;
         }
 
-        this.o = param
-        this.monitor.innerHTML = this.o
-        var xml = new XMLHttpRequest(); 
+        var xml = new XMLHttpRequest();
         xml.open('POST', '../php/calculator.php', true);
-        xml.setRequestHeader('Content-Type', 'text/plain'); 
+        xml.setRequestHeader('Content-Type', 'text/plain');
         xml.onload = () => {
             if (xml.status === 200) {
-                this.answer = xml.responseText; 
-                this.monitor.innerHTML = this.answer;
-                this.all = ""
-                return this.numbers = xml.responseText
+                this.output = xml.responseText
+                this.monitor.innerHTML = this.output;
+                return this.input = this.output
+            } else { 
+                console.error('Error:', xml.status, xml.statusText); 
             }
-            else { console.error('Error:', xml.status, xml.statusText); }
         }
-        xml.send(this.all);
+        xml.send(this.input);
     }
     reset(){
-        this.monitor.innerHTML = ''
-        if (this.numbers === ""){this.monitor.innerHTML = "0"}
-        return [this.numbers = '', this.o = '', this.x = '']
+        return [this.input = '0', this.monitor.innerHTML = '0', this.output = '0']
     }
     backspace(){
-        this.numbers = this.monitor.textContent.slice(0, -1)
-        this.monitor.innerHTML = this.numbers
-        if (this.numbers === ""){this.monitor.innerHTML = "0"}
+        let value = this.input.slice(0, -1)
+        if (value === ""){
+            return [this.input = "0", this.monitor.innerHTML = this.input]
+        } else {
+            return [this.input = value, this.monitor.innerHTML = this.input]
+        }
     }
 }
 
