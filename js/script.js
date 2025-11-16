@@ -39,7 +39,7 @@ class calculatorApp{
         }
 
         var xml = new XMLHttpRequest();
-        xml.open('POST', '../php/calculator.php', true);
+        xml.open('POST', 'php/calculator.php', true);
         xml.setRequestHeader('Content-Type', 'text/plain');
         xml.onload = () => {
             if (xml.status === 200) {
