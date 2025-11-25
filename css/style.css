@@ -34,7 +34,7 @@
 
 #calculator{
     position: relative;
-    width: calc(var(--p100-size-base) * 4 - var(--p50-size-base));
+    width: calc(var(--p100-size-base) * 5 - var(--p50-size-base));
     height: calc(var(--p100-size-base) * 5);
     padding: var(--p20-size-base);
     background-color: var(--secondary-color-black);
@@ -69,7 +69,7 @@
     display: grid;
     width: 100%;
     height: calc(100% - var(--p100-size-base));
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     /*grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: auto auto auto auto;
     grid-template-rows: 10px 10px 10px 10px 10px;*/

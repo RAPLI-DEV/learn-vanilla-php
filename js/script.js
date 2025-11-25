@@ -18,11 +18,16 @@ class calculatorApp{
     operation(param){
         let operations = param.toString()
         let lastChar = this.input.charAt(this.input.length - 1);
-        const operators = ['+', '-', '×', '÷'];
+        const operators = ['+', '-', '×', '÷', '%'];
 
-        if (operators.includes(lastChar) || this.input.trim() === "" && operations !== "-" || this.input.trim() === "0" && operations !== "-"){
-            return;
-        }
+        if (operators.includes(lastChar) ||
+            this.input.trim() === "" && operations !== "-" ||
+            this.input.trim() === "0" && operations !== "-" ||
+            operations === "!" && this.input.trim() === "" ||
+            operations === "!" && lastChar === '!')
+            {
+                return;
+            }
 
         if (this.input == '0'){
             return [this.input = operations, this.monitor.innerHTML = this.input];
@@ -39,7 +44,7 @@ class calculatorApp{
         }
 
         var xml = new XMLHttpRequest();
-        xml.open('POST', 'php/calculator.php', true);
+        xml.open('POST', 'http://localhost/calculator.php', true);
         xml.setRequestHeader('Content-Type', 'text/plain');
         xml.onload = () => {
             if (xml.status === 200) {
@@ -67,6 +72,7 @@ class calculatorApp{
 
 const calc = new calculatorApp()
 
+document.querySelector(".def-factorial").addEventListener("click", () => {calc.operation('!')})
 document.querySelector(".def-percent").addEventListener("click", () => {calc.operation('%')})
 document.querySelector(".def-clear").addEventListener("click", () => {calc.reset()})
 document.querySelector(".def-backSpace").addEventListener("click", () => {calc.backspace()})
@@ -88,6 +94,7 @@ document.querySelector(".def-comma").addEventListener("click", () => {calc.numbe
 document.querySelector(".def-eql").addEventListener("click", () => {calc.result("")})
 
 window.addEventListener('keyup', (event) => {
+    if (event.key == "!"){ document.querySelector(".def-factorial").click() }
     if (event.key == "%"){ document.querySelector(".def-percent").click() }
     if (event.key == "C"){ document.querySelector(".def-clear").click() }
     if (event.key == "Backspace"){ document.querySelector(".def-backSpace").click() }
