@@ -8,11 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $math = file_get_contents('php://input');
         $operators = ['+', '-', '/', '÷', '%',];
 
-        function math_eval($math, $operators){
-            $math = str_replace(['÷', '×', '%'], ['/', '*', '/100'], $math);
+        function math_eval($math, $operators)
+        {
+            $math = str_replace(['÷', '×', '%', '^'], ['/', '*', '/100', '**'], $math);
 
             //calculate factorial
-           while (strpos($math, '!') !== false) {
+            while (strpos($math, '!') !== false) {
                 $factorial_pos = strpos($math, '!');
                 $num = "";
                 for ($i = 1; $i < strlen($math); $i++) {
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $factorial *= $i;
                 }
-                
+
                 $math = str_replace($num . '!', $factorial, $math);
             }
 
@@ -38,11 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             http_response_code(200);
             echo $result;
         }
-        
+
         math_eval($math, $operators);
-
-
-        
     }
 } else {
     echo '';

@@ -8,23 +8,26 @@ class calculatorApp{
     }
     number(param){
         let numbers = param.toString()
-
+        let lastChar = this.input.charAt(this.input.length - 1);
+        if(lastChar !== "!" ){
         if (this.input == '0'){
             return [this.input = numbers, this.monitor.innerHTML = this.input];
         } else {
             return [this.input += numbers, this.monitor.innerHTML = this.input]
         }
     }
+    }
     operation(param){
         let operations = param.toString()
         let lastChar = this.input.charAt(this.input.length - 1);
-        const operators = ['+', '-', '×', '÷', '%'];
+        const operators = ['+', '-', '×', '÷', '%', '^'];
 
         if (operators.includes(lastChar) ||
             this.input.trim() === "" && operations !== "-" ||
             this.input.trim() === "0" && operations !== "-" ||
             operations === "!" && this.input.trim() === "" ||
-            operations === "!" && lastChar === '!')
+            operations === "!" && lastChar === '!' 
+        )
             {
                 return;
             }
@@ -36,7 +39,7 @@ class calculatorApp{
         }
     }
     result(){
-        const operators = ['+', '-', '×', '÷'];
+        const operators = ['+', '-', '×', '÷', ];
         let lastChar = this.input.charAt(this.input.length - 1);
 
         if (this.input.trim() === "" || operators.includes(lastChar)){
@@ -44,7 +47,7 @@ class calculatorApp{
         }
 
         var xml = new XMLHttpRequest();
-        xml.open('POST', 'php/calculator.php', true);
+        xml.open('POST', 'php/calculator.php/', true);
         xml.setRequestHeader('Content-Type', 'text/plain');
         xml.onload = () => {
             if (xml.status === 200) {
@@ -89,6 +92,7 @@ document.querySelector(".def-num1").addEventListener("click", () => {calc.number
 document.querySelector(".def-num2").addEventListener("click", () => {calc.number(2)})
 document.querySelector(".def-num3").addEventListener("click", () => {calc.number(3)})
 document.querySelector(".def-sub").addEventListener("click", () => {calc.operation('-')})
+document.querySelector(".def-exponent").addEventListener("click", () => {calc.operation('^')})
 document.querySelector(".def-num0").addEventListener("click", () => {calc.number(0)})
 document.querySelector(".def-comma").addEventListener("click", () => {calc.number('.')})
 document.querySelector(".def-eql").addEventListener("click", () => {calc.result("")})
