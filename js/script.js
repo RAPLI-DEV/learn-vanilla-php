@@ -2,6 +2,7 @@ class calculatorApp{
     constructor() {
         this.monitor = document.querySelector(".monitor")
         this.bracketed = false;
+        this.bracketedLevel = 0;
         this.input = '0'
         this.output = ''
         this.monitor.innerHTML = this.input
@@ -14,7 +15,7 @@ class calculatorApp{
             return [this.input = numbers, this.monitor.innerHTML = this.input];
         } 
         else if(this.bracketed){
-            return [this.input = this.input.slice(0, -1) + numbers + ")", this.monitor.innerHTML = this.input];
+            return [this.input = this.input.slice(0, this.bracketedLevel) + numbers + ")".repeat(this.bracketedLevel + (this.bracketedLevel * -2)), this.monitor.innerHTML = this.input];
         }
         else {
             return [this.input += numbers, this.monitor.innerHTML = this.input]
@@ -40,7 +41,7 @@ class calculatorApp{
             return [this.input = operations, this.monitor.innerHTML = this.input];
         }
         else if(this.bracketed){
-            return [this.input = this.input.slice(0, -1) + operations + ")", this.monitor.innerHTML = this.input]
+            return [this.input = this.input.slice(0, this.bracketedLevel) + operations + ")".repeat(this.bracketedLevel + this.bracketedLevel * -2), this.monitor.innerHTML = this.input]
         } else {
             return [this.input += operations, this.monitor.innerHTML = this.input]
         }
@@ -50,13 +51,17 @@ class calculatorApp{
         let lastChar = this.input.charAt(this.input.length - 1);
 
         
-        if(Number(lastChar) || this.bracketed){
+        if(Number(lastChar)){
             return;
         }
         if (this.input == '0'){
-            return [this.input = bracket, this.monitor.innerHTML = this.input, this.bracketed = true];
-        } else {
-            return [this.input += bracket, this.monitor.innerHTML = this.input, this.bracketed = true];
+            return [this.input = bracket, this.monitor.innerHTML = this.input, this.bracketed = true, this.bracketedLevel--];
+        } 
+        else if(this.bracketed){
+            return [this.input = this.input.slice(0, this.bracketedLevel) + bracket + ")".repeat(this.bracketedLevel + this.bracketedLevel * -2), this.monitor.innerHTML = this.input, this.bracketedLevel--]
+        }
+        else {
+            return [this.input += bracket, this.monitor.innerHTML = this.input, this.bracketed = true, this.bracketedLevel--];
         }
 
         
@@ -84,15 +89,15 @@ class calculatorApp{
         xml.send(this.input);
     }
     reset(){
-        return [this.input = '0', this.monitor.innerHTML = '0', this.output = '0', this.bracketed = false]
+        return [this.input = '0', this.monitor.innerHTML = '0', this.output = '0', this.bracketed = false, this.bracketedLevel = 0]
     }
     backspace(){
-        let value = this.bracketed ? this.input.slice(0, this.input.search(/[sct]/)) : this.input.slice(0, -1)
+        let value = this.bracketed ? this.input.slice(0, this.input.search(/([sct])(?!.*[sct])/)) : this.input.slice(0, -1)
         if (value === ""){
-            return [this.input = "0", this.monitor.innerHTML = this.input]
+            return [this.input = "0", this.monitor.innerHTML = this.input, this.bracketedLevel = 0, this.bracketed = false]
         } 
         else if(this.bracketed){
-            return [this.input = value, this.monitor.innerHTML = this.input, this.bracketed = false]
+            return [this.bracketedLevel++, this.input = value + ")".repeat(this.bracketedLevel + this.bracketedLevel * -2), this.monitor.innerHTML = this.input]
         }
         else {
             return [this.input = value, this.monitor.innerHTML = this.input]

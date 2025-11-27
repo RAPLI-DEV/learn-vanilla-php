@@ -60,7 +60,7 @@
     -moz-border-radius: var(--p10-size-base);
     -ms-border-radius: var(--p10-size-base);
     -o-border-radius: var(--p10-size-base);
-    font-size: var(--p50-size-base);
+    font-size: var(--p40-size-base);
     align-items: center;
     overflow: hidden;
 }
