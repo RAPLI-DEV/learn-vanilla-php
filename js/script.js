@@ -29,7 +29,8 @@ class calculatorApp{
         const operators = ['+', '×', '÷', '%', '^', '('];
 
         if (operators.includes(lastChar) && operations !== "-"||
-            this.input.trim() === "" && operations !== "-" ||
+        
+            this.input.trim() === "0" && operations !== "-" ||
             lastChar === "-" && operations === "-" ||
             operations === "!" && this.input.trim() === "" ||
             operations === "!" && lastChar === '!' 
@@ -59,7 +60,7 @@ class calculatorApp{
             return [this.input = bracket, this.monitor.innerHTML = this.input, this.bracketed = true, this.bracketedLevel--, this.inputStack.push(this.input)];
         } 
         else if(this.bracketed){
-            return [this.input = this.input.slice(0, this.bracketedLevel) + bracket + ")".repeat(this.bracketedLevel + this.bracketedLevel * -2), this.monitor.innerHTML = this.input, this.bracketedLevel--, this.inputStack.push(this.input)]
+            return [this.input = this.input.slice(0, this.bracketedLevel) + bracket + ")".repeat(this.bracketedLevel + this.bracketedLevel * -2), this.monitor.innerHTML = this.input, this.bracketedLevel--, this.inputStack.push(this.input),]
         }
         else {
             return [this.input += bracket, this.monitor.innerHTML = this.input, this.bracketed = true, this.bracketedLevel--, this.inputStack.push(this.input)];
@@ -90,16 +91,22 @@ class calculatorApp{
         xml.send(this.input);
     }
     reset(){
-        return [this.input = '0', this.monitor.innerHTML = '0', this.output = '0', this.bracketed = false, this.bracketedLevel = 0]
+        return [this.input = '0', this.inputStack = [], this.monitor.innerHTML = '0', this.output = '0', this.bracketed = false, this.bracketedLevel = 0]
     }
     backspace(){
-        let brackets = ['sin()', 'cos()', 'tan()']
+
         let value = this.inputStack[this.inputStack.length - 2 ];
+        let lastvalue = this.inputStack[this.inputStack.length - 1];
+
         if (value === undefined){
             return [this.input = "0", this.monitor.innerHTML = this.input, this.bracketedLevel = 0, this.bracketed = false, this.inputStack.pop()]
         } 
-        else if(brackets.includes(value)){
-            return [this.input = value, this.monitor.innerHTML = this.input, this.bracketedLevel--, this.inputStack.pop()]
+        else if(lastvalue.split('(').length - 1 === 1){
+            return [this.input = value, this.monitor.innerHTML = this.input, this.bracketedLevel = 0, this.bracketed = false, this.inputStack.pop()]
+
+        }
+        else if(lastvalue.includes('()')){
+            return [this.inputStack.pop(), this.input = value, this.monitor.innerHTML = this.input, this.bracketedLevel++ ]
         }
         else {
             return [this.input = value, this.monitor.innerHTML = this.input, this.inputStack.pop(),]
